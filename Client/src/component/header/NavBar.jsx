@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars } from 'react-icons/fa';
 import logo from '../../assets/logo/logo.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Home', route: '/' },
@@ -11,6 +11,7 @@ const navLinks = [
   { name: 'Blog', route: '/blog' },
 ]
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -49,7 +50,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <NavLink className='font-bold' to={link.route} key={link.route}>{link.name}</NavLink>
               ))}
-              <button className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Register</button>
+              <button onClick={()=>navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Register</button>
               <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>
             </div>
           </div>
