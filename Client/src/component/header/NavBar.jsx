@@ -50,7 +50,7 @@ const Navbar = () => {
                 <NavLink className='font-bold' to={link.route} key={link.route}>{link.name}</NavLink>
               ))}
               <button className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Register</button>
-              <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Register</button>
+              <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>
             </div>
           </div>
         </div>
