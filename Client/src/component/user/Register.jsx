@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 const Register = () => {
     document.title = "Register | Volunteer Network";
-    const { user, googleLogin } = useContext(AuthContext);
+    const { user, googleLogin, githubLogin } = useContext(AuthContext);
     const handelLogin = () => {
         googleLogin()
             .then(res => {
@@ -15,10 +15,18 @@ const Register = () => {
                 console.log(err.code);
             })
     }
-
+    const handelGithubLogin = () => {
+        githubLogin()
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => {
+                console.log(err.code);
+            })
+    }
 
     if (user) {
-        return <Navigate to="/" replace/>
+        return <Navigate to="/" replace />
     }
     return (
         <>
@@ -44,6 +52,7 @@ const Register = () => {
 
                             <a href="#">
                                 <button
+                                    onClick={handelGithubLogin}
                                     className="w-full text-center py-3 my-3 border flex space-x-2 items-center justify-center border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24"
                                         viewBox="0 0 24 24" stroke="currentColor" className="">

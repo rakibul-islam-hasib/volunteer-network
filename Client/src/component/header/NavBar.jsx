@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars } from 'react-icons/fa';
 import logo from '../../assets/logo/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { AuthContext } from '../../context/AuthProvider';
+import { Tooltip } from 'react-tooltip'
 const navLinks = [
   { name: 'Home', route: '/' },
   { name: 'Events', route: '/events' },
@@ -11,6 +12,7 @@ const navLinks = [
   { name: 'Blog', route: '/blog' },
 ]
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -30,7 +32,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 mt-2 flex items-center">
             {/* Add your logo here */}
-            <img onClick={()=>navigate('/')}  src={logo} className='w-52 cursor-pointer' alt="" />
+            <img onClick={() => navigate('/')} src={logo} className='w-52 cursor-pointer' alt="" />
           </div>
 
           {/* Mobile Menu Icon */}
@@ -50,7 +52,23 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <NavLink className='font-bold' to={link.route} key={link.route}>{link.name}</NavLink>
               ))}
-              <button onClick={()=>navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Join</button>
+
+              {
+                user ? <a
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Click to logout"
+                  data-tooltip-place="top"
+                  onClick={() => logOut().then(() => navigate('/')).catch(err => console.log(err.code))}
+                  className='text-red-500 cursor-pointer font-bold'
+                >
+                  {user?.displayName}
+                </a> : <button
+                  onClick={() => navigate('/register')}
+                  className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Login</button>
+              }
+              {/* <button onClick={() => navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Join</button> */}
+
+
               <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>
             </div>
           </div>
@@ -83,6 +101,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
+      <Tooltip id="my-tooltip" />
     </motion.nav>
   );
 };
