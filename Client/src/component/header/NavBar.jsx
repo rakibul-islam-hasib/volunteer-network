@@ -68,8 +68,7 @@ const Navbar = () => {
               }
               {/* <button onClick={() => navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Join</button> */}
 
-
-              <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>
+              {user && <button onClick={() => navigate('/admin')} className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import Home from './component/home/Home'
 import Login from './component/user/Login'
 import Register from './component/user/Register'
 import AuthProvider from './context/AuthProvider'
+import Admin from './component/user/Admin'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  }, 
+  {
+    path : 'admin',
+    element : <Admin />
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
