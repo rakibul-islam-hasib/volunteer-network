@@ -1,5 +1,5 @@
 import React from 'react';
-import Unav from './Unav';
+import Unav from '../header/Unav';
 
 const Register = () => {
     document.title = "Register | Volunteer Network"

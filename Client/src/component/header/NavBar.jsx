@@ -30,7 +30,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 mt-2 flex items-center">
             {/* Add your logo here */}
-            <img src={logo} className='w-52' alt="" />
+            <img onClick={()=>navigate('/')}  src={logo} className='w-52 cursor-pointer' alt="" />
           </div>
 
           {/* Mobile Menu Icon */}
@@ -50,7 +50,7 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <NavLink className='font-bold' to={link.route} key={link.route}>{link.name}</NavLink>
               ))}
-              <button onClick={()=>navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Register</button>
+              <button onClick={()=>navigate('/register')} className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Join</button>
               <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Admin</button>
             </div>
           </div>
