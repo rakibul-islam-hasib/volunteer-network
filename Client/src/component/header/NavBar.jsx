@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars } from 'react-icons/fa';
+import logo from '../../assets/logo/logo.png';
+import { NavLink } from 'react-router-dom';
 
+const navLinks = [
+  { name: 'Home', route: '/' },
+  { name: 'Events', route: '/events' },
+  { name: 'Donation', route: '/donation' },
+  { name: 'Blog', route: '/blog' },
+]
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -11,16 +19,17 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="bg-black fixed w-full z-10"
+      className="bg-transparent fixed top-0 w-full z-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div className="flex px-4 py-9 justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0 mt-2 flex items-center">
             {/* Add your logo here */}
+            <img src={logo} className='w-52' alt="" />
           </div>
 
           {/* Mobile Menu Icon */}
@@ -30,26 +39,18 @@ const Navbar = () => {
               type="button"
               className="text-gray-300 hover:text-white focus:outline-none"
             >
-              <FaBars className="h-6 w-6" />
+              <FaBars className="h-6 text-black w-6" />
             </button>
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <a
-                href="/"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Home
-              </a>
-              <a
-                href="/about"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                About
-              </a>
-              {/* Add more navigation links as needed */}
+          <div className="hidden text-black md:block">
+            <div className="ml-10 flex items-center  space-x-4">
+              {navLinks.map((link) => (
+                <NavLink className='font-bold' to={link.route} key={link.route}>{link.name}</NavLink>
+              ))}
+              <button className='px-6 rounded-lg text-white py-2 bg-primary font-bold'>Register</button>
+              <button className='px-6 rounded-lg text-white py-2 bg-[#434141] font-bold'>Register</button>
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@ const Navbar = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="md:hidden mt-2"
+              className="md:hidden mt-2 bg-black"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
