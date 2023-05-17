@@ -8,7 +8,7 @@ import Home from './component/home/Home'
 import Login from './component/user/Login'
 import Register from './component/user/Register'
 import AuthProvider from './context/AuthProvider'
-import Admin from './component/user/Admin'
+import Admin from './component/admin/Admin'
 import List from './component/admin/List'
 const router = createBrowserRouter([
   {
@@ -30,7 +30,8 @@ const router = createBrowserRouter([
     path : '/admin',
     element : <Admin />,
     children : [
-      { path : '/admin', element : <List /> }
+      { path : '/admin', element : <List /> },
+      {path : 'list' , element : <List />}
     ]
   }
 ])
