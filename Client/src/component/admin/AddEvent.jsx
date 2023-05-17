@@ -1,13 +1,16 @@
-import { ref } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 import { FaFolderOpen } from 'react-icons/fa';
 import { storage } from '../../firebase/firebase.init';
-
+import { v4 } from 'uuid';
 
 
 const AddEvent = () => {
-    const storageRef = ref(storage )
     const handelFromSubmit = e => {
+        const id = v4();
+        const file = e.target.file.files[0];
+        const fileName = id.slice(0, 5) + file.name;
+        const storageRef = ref(storage, id.slice(0, 5) + e.target.file.files[0].name);
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = {
@@ -16,7 +19,14 @@ const AddEvent = () => {
             description: formData.get('description'),
             banner: formData.get('file'),
         }
-        console.log(data);
+        uploadBytes(storageRef, file).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+            getDownloadURL(storageRef).then((url) => {
+                console.log('File available at', url);
+            }
+            );
+        }
+        );
     }
     return (
         <div>
