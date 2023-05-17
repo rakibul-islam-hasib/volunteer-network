@@ -1,12 +1,16 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaFolderOpen } from 'react-icons/fa';
 import { storage } from '../../firebase/firebase.init';
 import { v4 } from 'uuid';
-
+import { HashLoader } from 'react-spinners';
 
 const AddEvent = () => {
+    // Stats 
+    const [loader, setLoader] = useState(false); 
+    // Handel Form Submit
     const handelFromSubmit = e => {
+        setLoader(true);
         const id = v4();
         const file = e.target.file.files[0];
         const fileName = id.slice(0, 5) + file.name;
@@ -22,14 +26,27 @@ const AddEvent = () => {
         uploadBytes(storageRef, file).then((snapshot) => {
             console.log('Uploaded a blob or file!');
             getDownloadURL(storageRef).then((url) => {
-                console.log('File available at', url);
-            }
-            );
+                if (url) {
+                    setLoader(false);
+                    console.log(url)
+                    data.banner = url;
+                    console.log(data)
+                }
+                else {
+                    setLoader(false);
+                    console.log('error while uploading image')
+                }
+            }).catch(err => console.log(err.code))
         }
         );
     }
     return (
-        <div>
+        loader ? <div className='h-screen flex justify-center items-center'>
+            <HashLoader
+                color="#3F90FC"
+                size={70}
+            />
+        </div> : <div>
             <div className="title px-7 py-5">
                 <h1 className='text-2xl font-bold'>Add event</h1>
             </div>
