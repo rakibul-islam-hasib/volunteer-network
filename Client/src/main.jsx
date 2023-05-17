@@ -10,6 +10,7 @@ import Register from './component/user/Register'
 import AuthProvider from './context/AuthProvider'
 import Admin from './component/admin/Admin'
 import List from './component/admin/List'
+import AddEvent from './component/admin/AddEvent'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -31,7 +32,8 @@ const router = createBrowserRouter([
     element : <Admin />,
     children : [
       { path : '/admin', element : <List /> },
-      {path : 'list' , element : <List />}
+      {path : 'list' , element : <List />},
+      {path : 'add' , element : <AddEvent />},
     ]
   }
 ])
