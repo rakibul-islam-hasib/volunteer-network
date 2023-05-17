@@ -9,6 +9,7 @@ import Login from './component/user/Login'
 import Register from './component/user/Register'
 import AuthProvider from './context/AuthProvider'
 import Admin from './component/user/Admin'
+import List from './component/admin/List'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,8 +27,11 @@ const router = createBrowserRouter([
     element: <Register />,
   }, 
   {
-    path : 'admin',
-    element : <Admin />
+    path : '/admin',
+    element : <Admin />,
+    children : [
+      { path : '/admin', element : <List /> }
+    ]
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
