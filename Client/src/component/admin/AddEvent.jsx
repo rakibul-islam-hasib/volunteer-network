@@ -28,9 +28,23 @@ const AddEvent = () => {
             getDownloadURL(storageRef).then((url) => {
                 if (url) {
                     setLoader(false);
-                    console.log(url)
+                    // console.log(url)
                     data.banner = url;
-                    console.log(data)
+                    // console.log(data)
+                    if(data.banner == url){
+                        fetch('http://localhost:5000/api/userUpload', { 
+                            method: 'POST',
+                            headers : {
+                                'content-type' : 'application/json'
+                            }, 
+                            body: JSON.stringify(data)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log(data))
+                        .catch(err => console.log(err))
+                    }
+
+
                 }
                 else {
                     setLoader(false);
@@ -85,7 +99,7 @@ const AddEvent = () => {
                                                     </div>
                                                 </div>
 
-                                                <input type="file" className="h-full w-full opacity-0" name="file" />
+                                                <input type="file" required className="h-full w-full opacity-0" name="file" />
 
                                             </div>
                                         </div>
